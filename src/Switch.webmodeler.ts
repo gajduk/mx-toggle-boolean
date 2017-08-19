@@ -1,25 +1,12 @@
 import { Component, createElement } from "react";
-import * as classNames from "classnames";
 
 import { Switch } from "./components/Switch";
 import SwitchContainer, { SwitchContainerProps } from "./components/SwitchContainer";
 
-import { Label } from "./components/Label";
-
 // tslint:disable class-name
 export class preview extends Component<SwitchContainerProps, {}> {
     render() {
-        const maxLabelWidth = 11;
-        if (this.props.label.trim()) {
-            return createElement(Label, {
-                className: classNames(this.props.class),
-                label: this.props.label,
-                style: SwitchContainer.parseStyle(this.props.style),
-                weight: this.props.labelWidth > maxLabelWidth ? maxLabelWidth : this.props.labelWidth
-            }, this.renderSwitch(true));
-        } else {
-            return this.renderSwitch();
-        }
+        return this.renderSwitch();
     }
 
     private renderSwitch(hasLabel = false) {

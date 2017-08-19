@@ -1,7 +1,6 @@
 import { Component, SFCElement, createElement } from "react";
 
 import { Switch, SwitchProps, SwitchStatus } from "./Switch";
-import { Label } from "./Label";
 
 interface WrapperProps {
     class?: string;
@@ -13,8 +12,6 @@ interface WrapperProps {
 interface SwitchContainerProps extends WrapperProps {
     booleanAttribute: string;
     editable: "default" | "never";
-    label: string;
-    labelWidth: number;
 }
 
 interface SwitchContainerState {
@@ -37,16 +34,6 @@ class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerSta
     }
 
     render() {
-        const maxLabelWidth = 11;
-        if (this.props.label.trim()) {
-            return createElement(Label, {
-                className: `${this.props.class}`,
-                label: this.props.label,
-                style: SwitchContainer.parseStyle(this.props.style),
-                weight: this.props.labelWidth > maxLabelWidth ? maxLabelWidth : this.props.labelWidth
-            }, this.renderSwitch(true));
-        }
-
         return this.renderSwitch();
     }
 
@@ -59,16 +46,16 @@ class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerSta
         this.subscriptionHandles.forEach(mx.data.unsubscribe);
     }
 
-    private renderSwitch(hasLabel = false): SFCElement<SwitchProps> {
+    private renderSwitch(): SFCElement<SwitchProps> {
         const { class: className, style } = this.props;
 
         return createElement(Switch, {
             alertMessage: this.state.alertMessage,
-            className: !hasLabel ? className : undefined,
+            className: className,
             isChecked: this.state.isChecked,
             onClick: this.handleToggle,
             status: this.getSwitchStatus(!this.isReadOnly()),
-            style: !hasLabel ? SwitchContainer.parseStyle(style) : undefined
+            style: SwitchContainer.parseStyle(style)
         } as SwitchProps);
     }
 

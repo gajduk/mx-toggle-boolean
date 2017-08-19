@@ -148,7 +148,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = 
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(0), __webpack_require__(3), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, react_1, Switch_1, Label_1) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(0), __webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, react_1, Switch_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var SwitchContainer = (function (_super) {
@@ -163,15 +163,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = 
             return _this;
         }
         SwitchContainer.prototype.render = function () {
-            var maxLabelWidth = 11;
-            if (this.props.label.trim()) {
-                return react_1.createElement(Label_1.Label, {
-                    className: "" + this.props.class,
-                    label: this.props.label,
-                    style: SwitchContainer.parseStyle(this.props.style),
-                    weight: this.props.labelWidth > maxLabelWidth ? maxLabelWidth : this.props.labelWidth
-                }, this.renderSwitch(true));
-            }
             return this.renderSwitch();
         };
         SwitchContainer.prototype.componentWillReceiveProps = function (newProps) {
@@ -181,16 +172,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = 
         SwitchContainer.prototype.componentWillUnmount = function () {
             this.subscriptionHandles.forEach(mx.data.unsubscribe);
         };
-        SwitchContainer.prototype.renderSwitch = function (hasLabel) {
-            if (hasLabel === void 0) { hasLabel = false; }
+        SwitchContainer.prototype.renderSwitch = function () {
             var _a = this.props, className = _a.class, style = _a.style;
             return react_1.createElement(Switch_1.Switch, {
                 alertMessage: this.state.alertMessage,
-                className: !hasLabel ? className : undefined,
+                className: className,
                 isChecked: this.state.isChecked,
                 onClick: this.handleToggle,
                 status: this.getSwitchStatus(!this.isReadOnly()),
-                style: !hasLabel ? SwitchContainer.parseStyle(style) : undefined
+                style: SwitchContainer.parseStyle(style)
             });
         };
         SwitchContainer.prototype.getAttributeValue = function (attribute, mxObject) {
@@ -335,28 +325,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, react_1, classNames) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var Label = function (_a) {
-        var children = _a.children, className = _a.className, label = _a.label, style = _a.style, weight = _a.weight;
-        return react_1.createElement("div", { className: classNames("form-horizontal widget-switch-label", className), style: style }, react_1.createElement("div", { className: "form-group" }, react_1.createElement("div", { className: "col-sm-" + weight + " col-xs-" + weight }, react_1.createElement("label", { className: "control-label" }, label)), react_1.createElement("div", {
-            className: "col-sm-" + (12 - weight) + " col-xs-" + (12 - weight)
-        }, children)));
-    };
-    exports.Label = Label;
-    Label.defaultProps = {
-        weight: 6
-    };
-    Label.displayName = "Label";
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
 
 /***/ })
 /******/ ]);

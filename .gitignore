@@ -1,4 +1,7 @@
 dist/RefreshViewHelper/deployment
 dist/RefreshViewHelper/.svn
 dist/RefreshViewHelper/.mendix-cache
+dist/1.2.2
+dist/tmp/
+dist/tsc
 node_modules/

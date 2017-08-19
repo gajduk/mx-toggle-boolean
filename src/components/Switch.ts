@@ -2,14 +2,12 @@ import { SFC, createElement } from "react";
 import * as classNames from "classnames";
 
 import { Alert, AlertProps } from "./Alert";
-import { DeviceStyle } from "./SwitchContainer";
 
 import "../ui/Switch.scss";
 
 export interface SwitchProps {
     alertMessage?: string;
     className?: string;
-    deviceStyle?: DeviceStyle;
     isChecked: boolean;
     onClick: () => void;
     status: SwitchStatus;
@@ -21,7 +19,7 @@ export type SwitchStatus = "enabled" | "disabled" | "no-context";
 export const Switch: SFC<SwitchProps> = (props) =>
     createElement("div",
         {
-            className: classNames("widget-switch", props.className, props.deviceStyle),
+            className: classNames("widget-switch", props.className),
             style: props.style
         },
         createElement("input", {
@@ -49,9 +47,5 @@ export const Switch: SFC<SwitchProps> = (props) =>
         ),
         createElement(Alert, { message: props.alertMessage } as AlertProps)
     );
-
-Switch.defaultProps = {
-    deviceStyle: "auto"
-};
 
 Switch.displayName = "Switch";

@@ -58,24 +58,6 @@ describe("Switch", () => {
         expect(checkbox.props().checked).toBe(false);
     });
 
-    it("with the iOS device style renders with the class iOS", () => {
-        createAndFindElements(createProps({ deviceStyle: "iOS" }));
-
-        expect(switchWrapper.hasClass("iOS")).toBe(true);
-    });
-
-    it("with the android device style renders with the class android", () => {
-        createAndFindElements(createProps({ deviceStyle: "android" }));
-
-        expect(switchWrapper.hasClass("android")).toBe(true);
-    });
-
-    it("with the auto device style renders with the class auto", () => {
-        createAndFindElements(createProps({ deviceStyle: "auto" }));
-
-        expect(switchWrapper.hasClass("auto")).toBe(true);
-    });
-
     describe("that is enabled", () => {
         it("should not have the disabled class", () => {
             createAndFindElements(createProps({}));

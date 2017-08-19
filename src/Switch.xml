@@ -33,15 +33,5 @@
             <category>Appearance</category>
             <description>How much of the total row width (12) the label should occupy. Should not be greater than 11.</description>
         </property>
-        <property key="deviceStyle" type="enumeration" defaultValue="auto">
-            <caption>Platform</caption>
-            <category>Appearance</category>
-            <description>The general appearance of the switch. With auto detect, on the web it will be iOS</description>
-            <enumerationValues>
-                <enumerationValue key="auto">Auto detect</enumerationValue>
-                <enumerationValue key="android">Android</enumerationValue>
-                <enumerationValue key="iOS">iOS</enumerationValue>
-            </enumerationValues>
-        </property>
     </properties>
 </widget>

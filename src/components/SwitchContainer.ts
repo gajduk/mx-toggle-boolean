@@ -12,7 +12,6 @@ interface WrapperProps {
 
 interface SwitchContainerProps extends WrapperProps {
     booleanAttribute: string;
-    deviceStyle: DeviceStyle;
     editable: "default" | "never";
     label: string;
     labelWidth: number;
@@ -22,8 +21,6 @@ interface SwitchContainerState {
     alertMessage?: string;
     isChecked?: boolean;
 }
-
-type DeviceStyle = "auto" | "android" | "iOS";
 
 class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerState> {
     private subscriptionHandles: number[];
@@ -43,7 +40,7 @@ class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerSta
         const maxLabelWidth = 11;
         if (this.props.label.trim()) {
             return createElement(Label, {
-                className: `${this.props.deviceStyle} ${this.props.class}`,
+                className: `${this.props.class}`,
                 label: this.props.label,
                 style: SwitchContainer.parseStyle(this.props.style),
                 weight: this.props.labelWidth > maxLabelWidth ? maxLabelWidth : this.props.labelWidth
@@ -63,12 +60,11 @@ class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerSta
     }
 
     private renderSwitch(hasLabel = false): SFCElement<SwitchProps> {
-        const { class: className, deviceStyle, style } = this.props;
+        const { class: className, style } = this.props;
 
         return createElement(Switch, {
             alertMessage: this.state.alertMessage,
             className: !hasLabel ? className : undefined,
-            deviceStyle,
             isChecked: this.state.isChecked,
             onClick: this.handleToggle,
             status: this.getSwitchStatus(!this.isReadOnly()),
@@ -166,4 +162,4 @@ class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerSta
     }
 }
 
-export { DeviceStyle, SwitchContainer as default, SwitchContainerProps };
+export { SwitchContainer as default, SwitchContainerProps };

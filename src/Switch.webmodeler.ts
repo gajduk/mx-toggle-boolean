@@ -12,7 +12,7 @@ export class preview extends Component<SwitchContainerProps, {}> {
         const maxLabelWidth = 11;
         if (this.props.label.trim()) {
             return createElement(Label, {
-                className: classNames(this.props.class, this.props.deviceStyle),
+                className: classNames(this.props.class),
                 label: this.props.label,
                 style: SwitchContainer.parseStyle(this.props.style),
                 weight: this.props.labelWidth > maxLabelWidth ? maxLabelWidth : this.props.labelWidth
@@ -25,7 +25,6 @@ export class preview extends Component<SwitchContainerProps, {}> {
     private renderSwitch(hasLabel = false) {
         return createElement(Switch, {
             className: !hasLabel ? this.props.class : undefined,
-            deviceStyle: this.props.deviceStyle,
             isChecked: true,
             onClick: undefined as any,
             status: this.props.editable === "default" ? "enabled" : "disabled",

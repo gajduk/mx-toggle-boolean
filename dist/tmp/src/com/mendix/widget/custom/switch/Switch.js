@@ -197,9 +197,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Switch = function (props) {
-        return react_1.createElement("div", {
-            className: classNames("widget-toggle", props.className),
-            style: props.style
+        return react_1.createElement("button", {
+            className: classNames("btn mx-button btn-default", props.className),
+            style: props.style,
+            onClick: props.status === "enabled" ? props.onClick : undefined,
+            dangerouslySetInnerHTML: { __html: props.isChecked ? "X" : "Voir" }
         });
     };
     exports.Switch.displayName = "Switch";

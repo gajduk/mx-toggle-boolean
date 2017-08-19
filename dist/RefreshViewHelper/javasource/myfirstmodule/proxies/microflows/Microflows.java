@@ -48,6 +48,19 @@ public class Microflows
 			throw new MendixRuntimeException(e);
 		}
 	}
+	public static myfirstmodule.proxies.Container microflow(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			IMendixObject result = (IMendixObject)Core.execute(context, "MyFirstModule.Microflow", params);
+			return result == null ? null : myfirstmodule.proxies.Container.initialize(context, result);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
 	public static void toggle(IContext context, myfirstmodule.proxies.EnttiyViewHelper _enttiyViewHelper)
 	{
 		try

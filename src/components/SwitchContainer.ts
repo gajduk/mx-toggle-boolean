@@ -26,6 +26,7 @@ class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerSta
         this.subscriptionHandles = [];
         this.state = this.updateState(props.mxObject);
         this.handleToggle = this.handleToggle.bind(this);
+        // this.passOnHover = this.passOnHover.bind(this);
         this.subscriptionCallback = this.subscriptionCallback.bind(this);
 
     }
@@ -50,6 +51,7 @@ class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerSta
             className: className,
             isChecked: this.state.isChecked,
             onClick: this.handleToggle,
+            // onHover: this.passOnHover,
             status: this.getSwitchStatus(),
             style: SwitchContainer.parseStyle(style)
         } as SwitchProps);
@@ -72,7 +74,11 @@ class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerSta
             mxObject.set(booleanAttribute, !mxObject.get(booleanAttribute));
         }
     }
-
+/*
+    private passOnHover(e: any) {
+      debugger;
+    }
+*/
     private resetSubscriptions(mxObject?: mendix.lib.MxObject) {
         this.subscriptionHandles.forEach(mx.data.unsubscribe);
         this.subscriptionHandles = [];

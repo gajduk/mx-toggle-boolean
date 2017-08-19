@@ -15,10 +15,12 @@ export interface SwitchProps {
 export type SwitchStatus = "enabled" | "disabled" | "no-context";
 
 export const Switch: SFC<SwitchProps> = (props) =>
-    createElement("div",
+    createElement("button",
         {
-            className: classNames("widget-toggle", props.className),
-            style: props.style
+            className: classNames("btn mx-button btn-default", props.className),
+            style: props.style,
+            onClick: props.status === "enabled" ? props.onClick : undefined,
+            dangerouslySetInnerHTML: { __html: props.isChecked ? "X":"Voir" }
         },
         /*
         createElement("input", {

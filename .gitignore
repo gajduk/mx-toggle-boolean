@@ -1,0 +1,4 @@
+dist/RefreshViewHelper/deployment
+dist/RefreshViewHelper/.svn
+dist/RefreshViewHelper/.mendix-cache
+node_modules/

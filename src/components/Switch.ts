@@ -1,12 +1,10 @@
 import { SFC, createElement } from "react";
 import * as classNames from "classnames";
 
-import { Alert, AlertProps } from "./Alert";
 
 import "../ui/Switch.scss";
 
 export interface SwitchProps {
-    alertMessage?: string;
     className?: string;
     isChecked: boolean;
     onClick: () => void;
@@ -45,7 +43,6 @@ export const Switch: SFC<SwitchProps> = (props) =>
                 })
             })
         ),
-        createElement(Alert, { message: props.alertMessage } as AlertProps)
     );
 
 Switch.displayName = "Switch";

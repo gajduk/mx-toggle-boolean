@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -81,6 +81,152 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(0), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, react_1, Switch_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var SwitchContainer = (function (_super) {
+        __extends(SwitchContainer, _super);
+        function SwitchContainer(props) {
+            var _this = _super.call(this, props) || this;
+            _this.subscriptionHandles = [];
+            _this.state = _this.updateState(props.mxObject);
+            _this.handleToggle = _this.handleToggle.bind(_this);
+            _this.subscriptionCallback = _this.subscriptionCallback.bind(_this);
+            return _this;
+        }
+        SwitchContainer.prototype.render = function () {
+            return this.renderSwitch();
+        };
+        SwitchContainer.prototype.componentWillReceiveProps = function (newProps) {
+            this.resetSubscriptions(newProps.mxObject);
+            this.setState(this.updateState(newProps.mxObject));
+        };
+        SwitchContainer.prototype.componentWillUnmount = function () {
+            this.subscriptionHandles.forEach(mx.data.unsubscribe);
+        };
+        SwitchContainer.prototype.renderSwitch = function () {
+            var _a = this.props, className = _a.class, style = _a.style;
+            return react_1.createElement(Switch_1.Switch, {
+                className: className,
+                isChecked: this.state.isChecked,
+                onClick: this.handleToggle,
+                status: this.getSwitchStatus(),
+                style: SwitchContainer.parseStyle(style)
+            });
+        };
+        SwitchContainer.prototype.getAttributeValue = function (attribute, mxObject) {
+            return !!mxObject && mxObject.get(attribute);
+        };
+        SwitchContainer.prototype.getSwitchStatus = function () {
+            if (this.props.mxObject) {
+                return "enabled";
+            }
+            return "no-context";
+        };
+        SwitchContainer.prototype.handleToggle = function () {
+            var _a = this.props, booleanAttribute = _a.booleanAttribute, mxObject = _a.mxObject;
+            if (mxObject) {
+                mxObject.set(booleanAttribute, !mxObject.get(booleanAttribute));
+            }
+        };
+        SwitchContainer.prototype.resetSubscriptions = function (mxObject) {
+            this.subscriptionHandles.forEach(mx.data.unsubscribe);
+            this.subscriptionHandles = [];
+            if (mxObject) {
+                this.subscriptionHandles.push(mx.data.subscribe({
+                    callback: this.subscriptionCallback,
+                    guid: mxObject.getGuid()
+                }));
+                this.subscriptionHandles.push(mx.data.subscribe({
+                    attr: this.props.booleanAttribute,
+                    callback: this.subscriptionCallback,
+                    guid: mxObject.getGuid()
+                }));
+            }
+        };
+        SwitchContainer.prototype.updateState = function (mxObject) {
+            if (mxObject === void 0) { mxObject = this.props.mxObject; }
+            return {
+                isChecked: this.getAttributeValue(this.props.booleanAttribute, mxObject)
+            };
+        };
+        SwitchContainer.prototype.subscriptionCallback = function () {
+            this.setState(this.updateState());
+        };
+        SwitchContainer.parseStyle = function (style) {
+            if (style === void 0) { style = ""; }
+            try {
+                return style.split(";").reduce(function (styleObject, line) {
+                    var pair = line.split(":");
+                    if (pair.length === 2) {
+                        var name_1 = pair[0].trim().replace(/(-.)/g, function (match) { return match[1].toUpperCase(); });
+                        styleObject[name_1] = pair[1].trim();
+                    }
+                    return styleObject;
+                }, {});
+            }
+            catch (error) {
+                window.console.error("Failed to parse style", style, error);
+            }
+            return {};
+        };
+        return SwitchContainer;
+    }(react_1.Component));
+    exports.default = SwitchContainer;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, react_1, classNames) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Switch = function (props) {
+        return react_1.createElement("div", {
+            className: classNames("widget-switch", props.className),
+            style: props.style
+        }, react_1.createElement("input", {
+            checked: props.isChecked,
+            className: classNames("widget-switch-checkbox", { enabled: props.status === "enabled" }),
+            readOnly: true,
+            type: "checkbox"
+        }), react_1.createElement("div", {
+            className: classNames("widget-switch-btn-wrapper", {
+                "checked": props.isChecked,
+                "disabled": props.status === "disabled",
+                "no-switch": props.status === "no-context",
+                "un-checked": !props.isChecked
+            }),
+            onClick: props.status === "enabled" ? props.onClick : undefined
+        }, react_1.createElement("small", {
+            className: classNames("widget-switch-btn", {
+                left: !props.isChecked,
+                right: props.isChecked
+            })
+        })));
+    };
+    exports.Switch.displayName = "Switch";
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -135,186 +281,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(0), __webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, react_1, Switch_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var SwitchContainer = (function (_super) {
-        __extends(SwitchContainer, _super);
-        function SwitchContainer(props) {
-            var _this = _super.call(this, props) || this;
-            _this.subscriptionHandles = [];
-            _this.state = _this.updateState(props.mxObject);
-            _this.handleToggle = _this.handleToggle.bind(_this);
-            _this.subscriptionCallback = _this.subscriptionCallback.bind(_this);
-            _this.handleValidations = _this.handleValidations.bind(_this);
-            return _this;
-        }
-        SwitchContainer.prototype.render = function () {
-            return this.renderSwitch();
-        };
-        SwitchContainer.prototype.componentWillReceiveProps = function (newProps) {
-            this.resetSubscriptions(newProps.mxObject);
-            this.setState(this.updateState(newProps.mxObject));
-        };
-        SwitchContainer.prototype.componentWillUnmount = function () {
-            this.subscriptionHandles.forEach(mx.data.unsubscribe);
-        };
-        SwitchContainer.prototype.renderSwitch = function () {
-            var _a = this.props, className = _a.class, style = _a.style;
-            return react_1.createElement(Switch_1.Switch, {
-                alertMessage: this.state.alertMessage,
-                className: className,
-                isChecked: this.state.isChecked,
-                onClick: this.handleToggle,
-                status: this.getSwitchStatus(),
-                style: SwitchContainer.parseStyle(style)
-            });
-        };
-        SwitchContainer.prototype.getAttributeValue = function (attribute, mxObject) {
-            return !!mxObject && mxObject.get(attribute);
-        };
-        SwitchContainer.prototype.getSwitchStatus = function () {
-            if (this.props.mxObject) {
-                return "enabled";
-            }
-            return "no-context";
-        };
-        SwitchContainer.prototype.handleToggle = function () {
-            var _a = this.props, booleanAttribute = _a.booleanAttribute, mxObject = _a.mxObject;
-            if (mxObject) {
-                mxObject.set(booleanAttribute, !mxObject.get(booleanAttribute));
-            }
-        };
-        SwitchContainer.prototype.resetSubscriptions = function (mxObject) {
-            this.subscriptionHandles.forEach(mx.data.unsubscribe);
-            this.subscriptionHandles = [];
-            if (mxObject) {
-                this.subscriptionHandles.push(mx.data.subscribe({
-                    callback: this.subscriptionCallback,
-                    guid: mxObject.getGuid()
-                }));
-                this.subscriptionHandles.push(mx.data.subscribe({
-                    attr: this.props.booleanAttribute,
-                    callback: this.subscriptionCallback,
-                    guid: mxObject.getGuid()
-                }));
-                this.subscriptionHandles.push(mx.data.subscribe({
-                    callback: this.handleValidations,
-                    guid: mxObject.getGuid(),
-                    val: true
-                }));
-            }
-        };
-        SwitchContainer.prototype.updateState = function (mxObject) {
-            if (mxObject === void 0) { mxObject = this.props.mxObject; }
-            return {
-                alertMessage: "",
-                isChecked: this.getAttributeValue(this.props.booleanAttribute, mxObject)
-            };
-        };
-        SwitchContainer.prototype.subscriptionCallback = function () {
-            this.setState(this.updateState());
-        };
-        SwitchContainer.prototype.handleValidations = function (validations) {
-            var validationMessage = validations[0].getErrorReason(this.props.booleanAttribute);
-            validations[0].removeAttribute(this.props.booleanAttribute);
-            if (validationMessage) {
-                this.setState({ alertMessage: validationMessage });
-            }
-        };
-        SwitchContainer.parseStyle = function (style) {
-            if (style === void 0) { style = ""; }
-            try {
-                return style.split(";").reduce(function (styleObject, line) {
-                    var pair = line.split(":");
-                    if (pair.length === 2) {
-                        var name_1 = pair[0].trim().replace(/(-.)/g, function (match) { return match[1].toUpperCase(); });
-                        styleObject[name_1] = pair[1].trim();
-                    }
-                    return styleObject;
-                }, {});
-            }
-            catch (error) {
-                window.console.error("Failed to parse style", style, error);
-            }
-            return {};
-        };
-        return SwitchContainer;
-    }(react_1.Component));
-    exports.default = SwitchContainer;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(0), __webpack_require__(1), __webpack_require__(4), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, react_1, classNames, Alert_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Switch = function (props) {
-        return react_1.createElement("div", {
-            className: classNames("widget-switch", props.className),
-            style: props.style
-        }, react_1.createElement("input", {
-            checked: props.isChecked,
-            className: classNames("widget-switch-checkbox", { enabled: props.status === "enabled" }),
-            readOnly: true,
-            type: "checkbox"
-        }), react_1.createElement("div", {
-            className: classNames("widget-switch-btn-wrapper", {
-                "checked": props.isChecked,
-                "disabled": props.status === "disabled",
-                "no-switch": props.status === "no-context",
-                "un-checked": !props.isChecked
-            }),
-            onClick: props.status === "enabled" ? props.onClick : undefined
-        }, react_1.createElement("small", {
-            className: classNames("widget-switch-btn", {
-                left: !props.isChecked,
-                right: props.isChecked
-            })
-        })), react_1.createElement(Alert_1.Alert, { message: props.alertMessage }));
-    };
-    exports.Switch.displayName = "Switch";
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-
-/***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, react_1, classNames) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Alert = function (_a) {
-        var className = _a.className, bootstrapStyle = _a.bootstrapStyle, message = _a.message;
-        return message
-            ? react_1.createElement("div", { className: classNames("alert alert-" + bootstrapStyle, className) }, message)
-            : null;
-    };
-    exports.Alert.displayName = "Alert";
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

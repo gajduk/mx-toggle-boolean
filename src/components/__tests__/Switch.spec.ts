@@ -2,7 +2,6 @@ import { ShallowWrapper, shallow } from "enzyme";
 import { createElement } from "react";
 
 import { Switch, SwitchProps } from "../Switch";
-import { Alert } from "../Alert";
 
 describe("Switch", () => {
     let switchWrapper: ShallowWrapper<SwitchProps, any>;
@@ -41,7 +40,6 @@ describe("Switch", () => {
                     },
                     createElement("small", { className: "widget-switch-btn right" })
                 ),
-                createElement(Alert, { bootstrapStyle: "danger", message: "" })
             )
         );
     });

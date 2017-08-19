@@ -179,23 +179,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = 
                 className: className,
                 isChecked: this.state.isChecked,
                 onClick: this.handleToggle,
-                status: this.getSwitchStatus(!this.isReadOnly()),
+                status: this.getSwitchStatus(),
                 style: SwitchContainer.parseStyle(style)
             });
         };
         SwitchContainer.prototype.getAttributeValue = function (attribute, mxObject) {
             return !!mxObject && mxObject.get(attribute);
         };
-        SwitchContainer.prototype.isReadOnly = function () {
-            var _a = this.props, booleanAttribute = _a.booleanAttribute, editable = _a.editable, mxObject = _a.mxObject, readOnly = _a.readOnly;
-            if (editable === "default" && mxObject) {
-                return readOnly || mxObject.isReadonlyAttr(booleanAttribute);
-            }
-            return true;
-        };
-        SwitchContainer.prototype.getSwitchStatus = function (enabled) {
+        SwitchContainer.prototype.getSwitchStatus = function () {
             if (this.props.mxObject) {
-                return enabled ? "enabled" : "disabled";
+                return "enabled";
             }
             return "no-context";
         };

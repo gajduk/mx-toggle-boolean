@@ -11,7 +11,6 @@ interface WrapperProps {
 
 interface SwitchContainerProps extends WrapperProps {
     booleanAttribute: string;
-    editable: "default" | "never";
 }
 
 interface SwitchContainerState {
@@ -54,7 +53,7 @@ class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerSta
             className: className,
             isChecked: this.state.isChecked,
             onClick: this.handleToggle,
-            status: this.getSwitchStatus(!this.isReadOnly()),
+            status: this.getSwitchStatus(),
             style: SwitchContainer.parseStyle(style)
         } as SwitchProps);
     }
@@ -63,20 +62,10 @@ class SwitchContainer extends Component<SwitchContainerProps, SwitchContainerSta
         return !!mxObject && mxObject.get(attribute) as boolean;
     }
 
-    private isReadOnly() {
-        const { booleanAttribute, editable, mxObject, readOnly } = this.props;
-        if (editable === "default" && mxObject) {
-            return readOnly || mxObject.isReadonlyAttr(booleanAttribute);
-        }
-
-        return true;
-    }
-
-    private getSwitchStatus(enabled: boolean): SwitchStatus {
+    private getSwitchStatus(): SwitchStatus {
         if (this.props.mxObject) {
-            return enabled ? "enabled" : "disabled";
+            return "enabled";
         }
-
         return "no-context";
     }
 

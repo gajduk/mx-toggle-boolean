@@ -14,14 +14,5 @@
                 <attributeType name="Boolean"/>
             </attributeTypes>
         </property>
-        <property key="editable" type="enumeration" defaultValue="default">
-            <caption>Editable</caption>
-            <category>Data source</category>
-            <description/>
-            <enumerationValues>
-                <enumerationValue key="default">Default</enumerationValue>
-                <enumerationValue key="never">Never</enumerationValue>
-            </enumerationValues>
-        </property>
     </properties>
 </widget>

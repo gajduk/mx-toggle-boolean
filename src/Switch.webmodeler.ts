@@ -9,13 +9,13 @@ export class preview extends Component<SwitchContainerProps, {}> {
         return this.renderSwitch();
     }
 
-    private renderSwitch(hasLabel = false) {
+    private renderSwitch() {
         return createElement(Switch, {
-            className: !hasLabel ? this.props.class : undefined,
+            className: this.props.class,
             isChecked: true,
             onClick: undefined as any,
-            status: this.props.editable === "default" ? "enabled" : "disabled",
-            style: !hasLabel ? SwitchContainer.parseStyle(this.props.style) : undefined
+            status: "enabled" ,
+            style: SwitchContainer.parseStyle(this.props.style)
         });
     }
 }

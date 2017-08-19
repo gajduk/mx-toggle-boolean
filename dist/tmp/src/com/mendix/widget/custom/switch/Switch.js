@@ -198,27 +198,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Switch = function (props) {
         return react_1.createElement("div", {
-            className: classNames("widget-switch", props.className),
+            className: classNames("widget-toggle", props.className),
             style: props.style
-        }, react_1.createElement("input", {
-            checked: props.isChecked,
-            className: classNames("widget-switch-checkbox", { enabled: props.status === "enabled" }),
-            readOnly: true,
-            type: "checkbox"
-        }), react_1.createElement("div", {
-            className: classNames("widget-switch-btn-wrapper", {
-                "checked": props.isChecked,
-                "disabled": props.status === "disabled",
-                "no-switch": props.status === "no-context",
-                "un-checked": !props.isChecked
-            }),
-            onClick: props.status === "enabled" ? props.onClick : undefined
-        }, react_1.createElement("small", {
-            className: classNames("widget-switch-btn", {
-                left: !props.isChecked,
-                right: props.isChecked
-            })
-        })));
+        });
     };
     exports.Switch.displayName = "Switch";
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),

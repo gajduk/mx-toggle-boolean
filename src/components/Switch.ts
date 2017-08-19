@@ -17,9 +17,10 @@ export type SwitchStatus = "enabled" | "disabled" | "no-context";
 export const Switch: SFC<SwitchProps> = (props) =>
     createElement("div",
         {
-            className: classNames("widget-switch", props.className),
+            className: classNames("widget-toggle", props.className),
             style: props.style
         },
+        /*
         createElement("input", {
             checked: props.isChecked,
             className: classNames("widget-switch-checkbox", { enabled: props.status === "enabled" }),
@@ -43,6 +44,7 @@ export const Switch: SFC<SwitchProps> = (props) =>
                 })
             })
         ),
+        */
     );
 
 Switch.displayName = "Switch";
